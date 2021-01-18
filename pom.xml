@@ -18,6 +18,19 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <OUTPUT_PATH>/home/cacunha/performance-analysis/src/main/java/files/</OUTPUT_PATH>
+                        <INPUT_PATH>/home/cacunha/performance-analysis/src/main/java/files/</INPUT_PATH>
+                        <FILE_NAME>www_nytimes_com</FILE_NAME>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
     <dependencies>
