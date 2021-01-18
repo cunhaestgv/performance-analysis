@@ -21,7 +21,7 @@ public class HarFileModel {
 
     public HarFileModel() throws HarReaderException {
         this.fileCount = FillResourcesMap(System.getProperty("INPUT_PATH"), System.getProperty("FILE_NAME"), timeHarMap);
-        this.combinations(4,this.fileCount);
+        this.combinations(Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS")),this.fileCount);
         csvWriter.SaveResourcesCombinationsProbabilities(this.combinationStatistics, "results.csv");
     }
 
