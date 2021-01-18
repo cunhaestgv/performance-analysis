@@ -99,7 +99,7 @@ public class CsvWriter {
 
     public void SaveResourcesCombinationsProbabilities (LinkedList<ProcessCombinationModel> resourcesCombinationList, String fileName){
         try {
-            PrintWriter writer = new PrintWriter(new File(System.getenv("OUTPUT_PATH") + fileName));
+            PrintWriter writer = new PrintWriter(new File(System.getProperty("OUTPUT_PATH") + fileName));
             StringBuilder sb = new StringBuilder();
             sb.append("Combination");
             sb.append(';');

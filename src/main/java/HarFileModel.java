@@ -20,7 +20,7 @@ public class HarFileModel {
     private LinkedList<ProcessCombinationModel> combinationStatistics = new LinkedList<>();
 
     public HarFileModel() throws HarReaderException {
-        this.fileCount = FillResourcesMap(System.getenv("INPUT_PATH"), System.getenv("FILE_NAME"), timeHarMap);
+        this.fileCount = FillResourcesMap(System.getProperty("INPUT_PATH"), System.getProperty("FILE_NAME"), timeHarMap);
         this.combinations(4,this.fileCount);
         csvWriter.SaveResourcesCombinationsProbabilities(this.combinationStatistics, "results.csv");
     }
