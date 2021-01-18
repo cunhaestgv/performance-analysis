@@ -116,6 +116,7 @@ public class CsvWriter {
                 if(i==1000) {
                     writer.write(sb.toString());
                     sb.setLength(0);
+                    i=0;
                 }
             }
             writer.write(sb.toString());
