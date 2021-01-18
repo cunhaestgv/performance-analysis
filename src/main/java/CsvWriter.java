@@ -107,11 +107,16 @@ public class CsvWriter {
             sb.append(';');
             sb.append("CombinationLength");
             sb.append('\n');
+            int i=0;
             for(ProcessCombinationModel combinationInfo : resourcesCombinationList){
                 sb.append(combinationInfo.combination + ";");
                 sb.append((double) Math.round(combinationInfo.percentage*100)/100 + ";");
                 sb.append(combinationInfo.resourceLength);
                 sb.append('\n');
+                if(i==1000) {
+                    writer.write(sb.toString());
+                    sb.setLength(0);
+                }
             }
             writer.write(sb.toString());
             writer.close();
