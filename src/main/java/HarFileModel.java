@@ -43,6 +43,7 @@ public class HarFileModel {
         int fileCount = 0;
         HarReader harReader = new HarReader();
         File file = new File(path + fileName + ".har");
+        System.out.println(path + fileName + ".har");
         while (file.exists()){
             Har otherHar = harReader.readFromFile(file);
             for (HarEntry otherEntry : otherHar.getLog().getEntries()) {
