@@ -141,7 +141,7 @@ public class HarFileModel {
         //    System.out.print("Combination, length, probability");
         //    for(String s: resources) System.out.print(System.identityHashCode(s) + "+");
         //    System.out.print(" " + combinationInfo.resourceLength + " " + combinationInfo.percentage + "\n");
-
+            System.out.println("CombinationStatistics Size: " +  this.combinationStatistics.size());
             this.combinationStatistics.add(combinationInfo);
         }
     }
