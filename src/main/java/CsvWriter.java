@@ -113,7 +113,7 @@ public class CsvWriter {
                 sb.append((double) Math.round(combinationInfo.percentage*100)/100 + ";");
                 sb.append(combinationInfo.resourceLength);
                 sb.append('\n');
-                if(i==1000) {
+                if(i++==1000) {
                     writer.write(sb.toString());
                     sb.setLength(0);
                     i=0;
