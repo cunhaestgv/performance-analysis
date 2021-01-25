@@ -6,6 +6,8 @@ import harreader.model.Har;
 import harreader.model.HarEntry;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -17,12 +19,12 @@ public class HarFileModel {
     private LinkedHashMap<String, ArrayList<ResourceInfo>> timeHarMap = new LinkedHashMap<String, ArrayList<ResourceInfo>>();
     private int fileCount;
     private String fileName;
-    private LinkedList<ProcessCombinationModel> combinationStatistics = new LinkedList<>();
+    //private LinkedList<ProcessCombinationModel> combinationStatistics = new LinkedList<>();
 
-    public HarFileModel() throws HarReaderException {
+    public HarFileModel() throws HarReaderException, FileNotFoundException {
         this.fileCount = FillResourcesMap(System.getProperty("INPUT_PATH"), System.getProperty("FILE_NAME"), timeHarMap);
         this.combinations(Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS")),this.fileCount);
-        csvWriter.SaveResourcesCombinationsProbabilities(this.combinationStatistics, "results.csv");
+        //csvWriter.SaveResourcesCombinationsProbabilities(this.combinationStatistics, "results.csv");
     }
 
     private static Float percentile(List<Float> latencies, double percentile) {
@@ -84,7 +86,7 @@ public class HarFileModel {
      * @param len number of combinations
      * @param fileCount number of files (i.e., runs)
      */
-    private void combinations(int len, int fileCount){
+    private void combinations(int len, int fileCount) throws FileNotFoundException {
         ArrayList<String> resources= new ArrayList<>(timeHarMap.keySet());
         System.out.println("Número resources " + resources.size());
         Set<Set<String>> combinations = Sets.combinations(ImmutableSet.copyOf(resources), len);
@@ -93,6 +95,17 @@ public class HarFileModel {
         Iterator combIterator = combinations.iterator();
         System.out.println("Número combinações " + combinations.size());
         int i = 0;
+
+        PrintWriter writer = new PrintWriter(new File(System.getProperty("OUTPUT_PATH") + fileName));
+        StringBuilder sb = new StringBuilder();
+        sb.append("Combination");
+        sb.append(';');
+        sb.append("Probability");
+        sb.append(';');
+        sb.append("CombinationLength");
+        sb.append('\n');
+        writer.write(sb.toString());
+
         while (combIterator.hasNext()){
             r = (Set) combIterator.next();
 
@@ -105,17 +118,19 @@ public class HarFileModel {
 
             ProcessCombinationModel combinationInfo= new ProcessCombinationModel();
             combinationInfo.combination = line.toString();
-            calculateStatistics(combinationInfo,fileCount);
+            calculateStatistics(combinationInfo,fileCount, writer);
             if(i++%100000==0) System.out.println("Comb " + i);
         }
+        writer.close();
     }
 
     /**
      * Auxiliary method that calculates statistics for each resource
      * @param combinationInfo single combination of resources
      * @param fileCount number of runs
+     * @param writer
      */
-    private void calculateStatistics(ProcessCombinationModel combinationInfo, int fileCount){
+    private void calculateStatistics(ProcessCombinationModel combinationInfo, int fileCount, PrintWriter writer){
         boolean resourceFound=false;
 
         String[] resources = combinationInfo.combination.split(","); // resources of each combination
@@ -141,8 +156,13 @@ public class HarFileModel {
         //    System.out.print("Combination, length, probability");
         //    for(String s: resources) System.out.print(System.identityHashCode(s) + "+");
         //    System.out.print(" " + combinationInfo.resourceLength + " " + combinationInfo.percentage + "\n");
-            System.out.println("CombinationStatistics Size: " +  this.combinationStatistics.size());
-            this.combinationStatistics.add(combinationInfo);
+            //this.combinationStatistics.add(combinationInfo);
+            StringBuilder sb = new StringBuilder();
+            sb.append(combinationInfo.combination + ";");
+            sb.append((double) Math.round(combinationInfo.percentage*100)/100 + ";");
+            sb.append(combinationInfo.resourceLength);
+            sb.append('\n');
+            writer.write(sb.toString());
         }
     }
 }
