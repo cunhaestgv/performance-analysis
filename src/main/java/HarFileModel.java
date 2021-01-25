@@ -87,7 +87,7 @@ public class HarFileModel {
      * @param fileCount number of files (i.e., runs)
      * @param s
      */
-    private void combinations(int len, int fileCount, String s, String fileName) throws FileNotFoundException {
+    private void combinations(int len, int fileCount, String fileName) throws FileNotFoundException {
         ArrayList<String> resources= new ArrayList<>(timeHarMap.keySet());
         System.out.println("Número resources " + resources.size());
         Set<Set<String>> combinations = Sets.combinations(ImmutableSet.copyOf(resources), len);
