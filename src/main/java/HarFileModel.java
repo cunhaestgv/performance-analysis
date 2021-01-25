@@ -23,7 +23,7 @@ public class HarFileModel {
 
     public HarFileModel() throws HarReaderException, FileNotFoundException {
         this.fileCount = FillResourcesMap(System.getProperty("INPUT_PATH"), System.getProperty("FILE_NAME"), timeHarMap);
-        this.combinations(Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS")),this.fileCount);
+        this.combinations(Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS")),this.fileCount, "results.csv");
         //csvWriter.SaveResourcesCombinationsProbabilities(this.combinationStatistics, "results.csv");
     }
 
@@ -85,8 +85,9 @@ public class HarFileModel {
      * Compute statistics for each combination
      * @param len number of combinations
      * @param fileCount number of files (i.e., runs)
+     * @param s
      */
-    private void combinations(int len, int fileCount) throws FileNotFoundException {
+    private void combinations(int len, int fileCount, String s, String fileName) throws FileNotFoundException {
         ArrayList<String> resources= new ArrayList<>(timeHarMap.keySet());
         System.out.println("Número resources " + resources.size());
         Set<Set<String>> combinations = Sets.combinations(ImmutableSet.copyOf(resources), len);
