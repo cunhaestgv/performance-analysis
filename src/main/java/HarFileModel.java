@@ -26,7 +26,7 @@ public class HarFileModel {
         this.fileCount = FillResourcesMap(System.getProperty("INPUT_PATH"), System.getProperty("FILE_NAME"), timeHarMap);
 
         for (int i=nComb;i<timeHarMap.keySet().size(); i++) {
-            File fileOutput = new File(System.getProperty("OUTPUT_PATH") + "results_" + i + "comb.csv");
+            File fileOutput = new File(System.getProperty("OUTPUT_PATH") + "results_" + i + "combin.csv");
             this.combinations(i, this.fileCount, fileOutput);
             if(fileOutput.length() < 50) break;
         }
