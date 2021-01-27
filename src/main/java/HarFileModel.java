@@ -22,10 +22,11 @@ public class HarFileModel {
     //private LinkedList<ProcessCombinationModel> combinationStatistics = new LinkedList<>();
 
     public HarFileModel() throws HarReaderException, FileNotFoundException {
-        int nComb = Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS"));
+        int nCombInit = Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS_INIT"));
+        int nCombFinal = Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS_FINAL"));
         this.fileCount = FillResourcesMap(System.getProperty("INPUT_PATH"), System.getProperty("FILE_NAME"), timeHarMap);
 
-        for (int i=nComb;i<timeHarMap.keySet().size(); i++) {
+        for (int i=nCombInit;i<nCombFinal; i++) {
             File fileOutput = new File(System.getProperty("OUTPUT_PATH") + "results_" + i + "combin.csv");
             this.combinations(i, this.fileCount, fileOutput);
             if(fileOutput.length() < 50) break;
