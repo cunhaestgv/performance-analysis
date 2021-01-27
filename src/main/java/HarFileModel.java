@@ -24,6 +24,7 @@ public class HarFileModel {
     public HarFileModel() throws HarReaderException, FileNotFoundException {
         int nCombInit = Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS_INIT"));
         int nCombFinal = Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS_FINAL"));
+        System.out.println("Combinations from " +nCombInit + " to " + nCombFinal);
         this.fileCount = FillResourcesMap(System.getProperty("INPUT_PATH"), System.getProperty("FILE_NAME"), timeHarMap);
 
         for (int i=nCombInit;i<nCombFinal; i++) {
