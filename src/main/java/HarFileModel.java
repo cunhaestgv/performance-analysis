@@ -20,7 +20,7 @@ public class HarFileModel {
     private int fileCount;
     private String fileName;
     //private LinkedList<ProcessCombinationModel> combinationStatistics = new LinkedList<>();
-
+    //
     public HarFileModel() throws HarReaderException, FileNotFoundException {
         int nCombInit = Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS_INIT"));
         int nCombFinal = Integer.parseInt(System.getProperty("NUMBER_COMBINATIONS_FINAL"));
